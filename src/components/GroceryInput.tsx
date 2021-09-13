@@ -32,16 +32,15 @@ const GroceryInput = ({addGrocery, staples}: {addGrocery: (grocery: Grocery)=> v
         </div>
         <div className="col-md-6">
         <label>Quick Add Staple Food</label>
-        <select name="staples" ref={stapleInput}>
-            {staples.map((item)=><option>{item.name}</option>)}
+        <select className="form-control" name="staples" ref={stapleInput}>
+            {staples.map((item)=><option key={item.id} value={JSON.stringify(item)}>{item.name}</option>)}
         </select>
-        <button onClick={()=>{
-            if(stapleInput.current.value!=="")
-            addGrocery({
-                id: 0,
-                name:stapleInput.current.value,
-                icon: null
-            }) }}>Add</button>
+        <button className="btn btn-outline-secondary" onClick={()=>{
+            if(stapleInput.current.value!==""){
+                const value = JSON.parse(stapleInput.current.value)
+                addGrocery(value)
+            }
+             }}>Add</button>
         </div>
     </div>
 }
